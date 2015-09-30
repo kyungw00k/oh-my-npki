@@ -46,14 +46,6 @@ Vagrant.configure(2) do |config|
     vb.customize ["storageattach", :id, "--storagectl", "IDE Controller", "--port", "0", "--device", "1", "--type", "dvddrive", "--medium", "emptydrive"]
   end
 
-  # 신한은행
-  config.vm.provision :shell, :name => "[신한은행] 개인 방화벽(AOS)", :inline => "/bootstrap/shinhan/InstAosmgr.exe", :args => "/S", :privileged => true
-  config.vm.provision :shell, :name => "[신한은행] 공인인증 / 보안통신(INISAFE Web)", :inline => "/bootstrap/shinhan/INIS70.exe", :args => "/S", :privileged => true
-  #config.vm.provision :shell, :name => "[신한은행] 키보드 보안(Secure Keystroke)", :inline => "/bootstrap/shinhan/SCSKInstTotal.exe", :args => "/S", :privileged => true
-
-  # 국민은행
-  config.vm.provision :shell, :name => "[국민은행] 공인인증서 보안", :inline => "/bootstrap/kbstar/delfino.exe", :args => "/SILENT", :privileged => true
-  #config.vm.provision :shell, :name => "[국민은행] 개인PC 방화벽(nProtect-Netizen)", :inline => "/bootstrap/kbstar/IE_nProtect_Netizen.exe", :args => "/S", :privileged => true
-  #config.vm.provision :shell, :name => "[국민은행] 로그수집기(nProtect-SecuLog)", :inline => "/bootstrap/kbstar/npEfdsWCtrlSetup.exe", :args => "/S", :privileged => true
-
+  #
+  config.vm.provision :shell, :inline => "/bootstrap/init.ps1", :privileged => true
 end

@@ -7,11 +7,8 @@
 * VirtualBox
 
 ## Provision
-* 신한은행
-  * 개인 방화벽(AOS)
-  * 공인인증 / 보안통신(INISAFE Web)
-* 국민은행
-  * 공인인증서 보안
+* 신한은행 통합설치
+* 국민은행 통합설치
 
 ## Shared Folders
 * `/Users/vagrant/AppData/LocalLow/NPKI`
