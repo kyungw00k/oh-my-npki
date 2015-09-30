@@ -46,6 +46,5 @@ Vagrant.configure(2) do |config|
     vb.customize ["storageattach", :id, "--storagectl", "IDE Controller", "--port", "0", "--device", "1", "--type", "dvddrive", "--medium", "emptydrive"]
   end
 
-  #
-  config.vm.provision :shell, :inline => "/bootstrap/init.ps1", :privileged => true
+  config.vm.provision :shell, :inline => "cmd /c C:\\bootstrap\\init.bat", :privileged => true
 end
