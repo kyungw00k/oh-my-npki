@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "kyungw00k/windows-10-pro-kn-x64"
+  config.vm.box = "kyungw00k/windows-7-pro-k-x64"
 
   # Port Forward 설정
   # config.vm.network "forwarded_port", guest: 80, host: 8080
@@ -12,6 +12,9 @@ Vagrant.configure(2) do |config|
 
   # 공인인증서 위치 Mount
   config.vm.synced_folder "./NPKI", "/Users/vagrant/AppData/LocalLow/NPKI"
+
+  # 은행 관련 설치 파일 위치
+  config.vm.synced_folder "./bootstrap", "/bootstrap"
 
   # See http://www.virtualbox.org/manual/ch08.html
   config.vm.provider "virtualbox" do |vb|
@@ -43,6 +46,14 @@ Vagrant.configure(2) do |config|
     vb.customize ["storageattach", :id, "--storagectl", "IDE Controller", "--port", "0", "--device", "1", "--type", "dvddrive", "--medium", "emptydrive"]
   end
 
-  # XX 은행
-  #config.vm.provision :shell, :name => "XX 은행 통합 설치 파일 설치", :path => "bootstrap/XXX.exe /quiet", :privileged => true
+  # 신한은행
+  config.vm.provision :shell, :name => "[신한은행] 개인 방화벽(AOS)", :inline => "/bootstrap/shinhan/InstAosmgr.exe", :args => "/S", :privileged => true
+  config.vm.provision :shell, :name => "[신한은행] 공인인증 / 보안통신(INISAFE Web)", :inline => "/bootstrap/shinhan/INIS70.exe", :args => "/S", :privileged => true
+  #config.vm.provision :shell, :name => "[신한은행] 키보드 보안(Secure Keystroke)", :inline => "/bootstrap/shinhan/SCSKInstTotal.exe", :args => "/S", :privileged => true
+
+  # 국민은행
+  config.vm.provision :shell, :name => "[국민은행] 공인인증서 보안", :inline => "/bootstrap/kbstar/delfino.exe", :args => "/SILENT", :privileged => true
+  #config.vm.provision :shell, :name => "[국민은행] 개인PC 방화벽(nProtect-Netizen)", :inline => "/bootstrap/kbstar/IE_nProtect_Netizen.exe", :args => "/S", :privileged => true
+  #config.vm.provision :shell, :name => "[국민은행] 로그수집기(nProtect-SecuLog)", :inline => "/bootstrap/kbstar/npEfdsWCtrlSetup.exe", :args => "/S", :privileged => true
+
 end
